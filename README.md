@@ -6,7 +6,7 @@
 - 🏡 Based in **Okinawa, Japan**
 - 🌐 Network-focused **SRE**
 - 🌊 Love the beautiful ocean
-- 📚️ Check out the [About](https://dives.dev/about) section on my logbook
+- 📚️ Check out the [About](https://dives.dev/about) on my logbook
 
 ![GCP](https://img.shields.io/badge/GCP-4285F4?logo=google-cloud&logoColor=white)
 ![Go](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white)
