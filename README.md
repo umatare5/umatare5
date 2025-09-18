@@ -1,6 +1,13 @@
 ### Hi there 👋
 
-<img align="right" src="https://github-readme-stats.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars">
+<picture>
+  <source media="(prefers-color-scheme: dark)"
+          srcset="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars&theme=algolia" />
+  <source media="(prefers-color-scheme: light)"
+          srcset="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars&theme=default" />
+  <img align="right" alt="GitHub Stats"
+       src="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars" />
+</picture>
 
 - 🤿 I'm **umatare5**, also known as **@ram**
 - 🏡 Based in **Okinawa, Japan**
