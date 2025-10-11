@@ -2,11 +2,11 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)"
-          srcset="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars&theme=algolia" />
+          srcset="./docs/assets/readme_stats_dark.svg" />
   <source media="(prefers-color-scheme: light)"
-          srcset="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars&theme=default" />
+          srcset="./docs/assets/readme_stats_light.svg" />
   <img align="right" alt="GitHub Stats"
-       src="https://github-readme-stats-one-lake-95.vercel.app/api?username=umatare5&show_icons=true&count_private=true&hide=stars" />
+       src="./docs/assets/readme_stats_light.svg" />
 </picture>
 
 - 🤿 I'm **umatare5**, also known as **@ram**
