@@ -40,7 +40,7 @@ jobs:
         run: |
           vercel dev --token ${{ secrets.VERCEL_ACCESS_TOKEN }} --yes &
           for i in {1..40}; do
-            curl -sS http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }} >/dev/null && break
+            curl -fsS http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }} >/dev/null && break
             sleep 2
           done
         working-directory: *wd
@@ -48,9 +48,9 @@ jobs:
       - name: Generate SVGs into docs/assets/
         run: |
           ASSET_DIR=docs/assets
-          mkdir -p "$ASSET_DIR"
-          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_LIGHT_THEME }}" -o "${ASSET_DIR}/readme_stats_light.svg"
-          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_DARK_THEME }}" -o "${ASSET_DIR}/readme_stats_dark.svg"
+          mkdir -p "${{ env.GRS_ASSET_DIR }}"
+          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_LIGHT_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_light.svg"
+          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_DARK_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_dark.svg"
 
       - name: Stop dev server
         run: |
@@ -63,6 +63,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/*.svg
+          git add "${{ env.GRS_ASSET_DIR }}/*.svg"
           git commit -m "cron-daily: refresh readme_stats_(light|dark).svg"
           git push
