@@ -1,0 +1,68 @@
+name: Build static github-readme-stats
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 0 * * *" # Every day at 09:30 JST (00:30 UTC)
+
+permissions:
+  contents: write
+
+env:
+  GRS_ASSET_DIR: docs/assets
+  GRS_LIGHT_THEME: default
+  GRS_DARK_THEME: algolia
+  GITHUB_USER: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@48.2.9
+
+      - name: Clone github-readme-stats
+        run: git clone --depth=1 https://github.com/anuraghazra/github-readme-stats
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: &wd github-readme-stats
+
+      - name: Start local server
+        run: |
+          vercel dev --token ${{ secrets.VERCEL_ACCESS_TOKEN }} --yes &
+          for i in {1..40}; do
+            curl -sS http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }} >/dev/null && break
+            sleep 2
+          done
+        working-directory: *wd
+
+      - name: Generate SVGs into docs/assets/
+        run: |
+          ASSET_DIR=docs/assets
+          mkdir -p "$ASSET_DIR"
+          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_LIGHT_THEME }}" -o "${ASSET_DIR}/readme_stats_light.svg"
+          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_DARK_THEME }}" -o "${ASSET_DIR}/readme_stats_dark.svg"
+
+      - name: Stop dev server
+        run: |
+          pkill -f "vercel dev" || true
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/*.svg
+          git commit -m "cron-daily: refresh readme_stats_(light|dark).svg"
+          git push
