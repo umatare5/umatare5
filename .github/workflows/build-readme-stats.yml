@@ -40,6 +40,7 @@ jobs:
         run: |
           vercel dev --token ${{ secrets.VERCEL_ACCESS_TOKEN }} --yes &
           sleep 10
+          curl -fsS "http://127.0.0.1:3000/api?username=umatare5&show_icons=true&count_private=true&hide=stars&theme=default"
         working-directory: *wd
 
       - name: Generate SVGs into docs/assets/
