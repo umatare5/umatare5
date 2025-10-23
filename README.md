@@ -15,8 +15,8 @@
 - 🌊 Love the beautiful ocean
 - 📚️ Check out the [About](https://dives.dev/about) on my logbook
 
-![GCP](https://img.shields.io/badge/GCP-4285F4?logo=google-cloud&logoColor=white)
-![Go](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white)
-![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?logo=cisco&logoColor=white)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&logoColor=white)
-![Grafana](https://img.shields.io/badge/Grafana-F46800?logo=grafana&logoColor=white)
+<a href="https://cloud.google.com/">![GCP](https://img.shields.io/badge/GCP-4285F4?logo=google-cloud&logoColor=white)</a>
+<a href="https://go.dev/">![Go](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white)</a>
+<a href="https://www.cisco.com/">![Cisco](https://img.shields.io/badge/Cisco-1BA0D7?logo=cisco&logoColor=white)</a>
+<a href="https://prometheus.io/">![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&logoColor=white)</a>
+<a href="https://grafana.com/">![Grafana](https://img.shields.io/badge/Grafana-F46800?logo=grafana&logoColor=white)</a>
