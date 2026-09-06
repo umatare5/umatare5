@@ -9,6 +9,7 @@ permissions:
   contents: write
 
 env:
+  GRS_API_BASE: https://github-readme-stats-fast.vercel.app/api
   GRS_ASSET_DIR: docs/assets
   GRS_LIGHT_THEME: default
   GRS_DARK_THEME: algolia
@@ -21,44 +22,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Setup Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
-        with:
-          node-version: 22
-
-      - name: Install Vercel CLI
-        run: npm i -g vercel@48.2.9
-
-      - name: Clone github-readme-stats
-        run: git clone --depth=1 https://github.com/anuraghazra/github-readme-stats
-
-      - name: Install dependencies
-        run: npm ci
-        working-directory: &wd github-readme-stats
-
-      - name: Start local server
-        run: |
-          vercel dev --token ${{ secrets.VERCEL_ACCESS_TOKEN }} --yes &
-          sleep 10
-        working-directory: *wd
-
       - name: Generate SVGs into docs/assets/
         run: |
-          ASSET_DIR=docs/assets
           mkdir -p "${{ env.GRS_ASSET_DIR }}"
-          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_LIGHT_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_light.svg"
-          curl -fsS "http://127.0.0.1:3000/api?username=${{ env.GITHUB_USER }}&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_DARK_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_dark.svg"
-
-      - name: Stop dev server
-        run: |
-          pkill -f "vercel dev" || true
+          curl -fsS "${{ env.GRS_API_BASE }}?username=${{ env.GITHUB_USER }}&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_LIGHT_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_light.svg"
+          curl -fsS "${{ env.GRS_API_BASE }}?username=${{ env.GITHUB_USER }}&show_icons=true&count_private=true&hide=stars&theme=${{ env.GRS_DARK_THEME }}" -o "${{ env.GRS_ASSET_DIR }}/readme_stats_dark.svg"
 
       - name: Commit changes
         run: |
           if git diff --quiet; then
             exit 0
           fi
-          if [ "$(stat -c%s "${{ env.GRS_ASSET_DIR }}/readme_stats_light.svg")" -eq 754 ] || [ "$(stat -c%s "${{ env.GRS_ASSET_DIR }}/readme_stats_dark.svg")" -eq 754 ]; then
+          if grep -q "Something went wrong" "${{ env.GRS_ASSET_DIR }}/readme_stats_light.svg" "${{ env.GRS_ASSET_DIR }}/readme_stats_dark.svg"; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
