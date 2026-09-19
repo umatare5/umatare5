@@ -13,7 +13,7 @@
 - 🏡 Based in **Okinawa, Japan**
 - 🌐 Network-focused **SRE**
 - 🌊 Love the beautiful ocean
-- 📚️ Check out the [daily.dev - About](https://daily.dev/umatare5)
+- 📚️ Check out the [About me](https://daily.dev/umatare5) at daily.dev
 
 <a href="https://cloud.google.com/">![GCP](https://img.shields.io/badge/GCP-4285F4?logo=google-cloud&logoColor=white)</a>
 <a href="https://go.dev/">![Go](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white)</a>
