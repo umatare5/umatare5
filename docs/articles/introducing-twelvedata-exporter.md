@@ -15,19 +15,19 @@ Both were pioneering work, and both read from the Yahoo Finance API. Yahoo then 
 
 I went looking for another platform and found [Twelve Data](https://twelvedata.com). It needs an API key and its free plan restricts what I can reach, but the service model covered what I needed for US equities and indices.
 
-So I started this project to run **efficient** systematic trading at **zero platform cost**. The requirement for this efficiency is that each trading decision takes seconds and follows indicators, rather than my reaction to price movements.
+So I started this project to automate my trading at no infrastructure cost. Each trading decision takes seconds and follows indicators rather than my reaction to price movements.
 
 ## The twelvedata-exporter Approach
 
-twelvedata-exporter is a **Prometheus exporter operating as a REST API client**. Released under the MIT license, one binary fetches quotes and publishes them as metrics.
+twelvedata-exporter is a **Prometheus exporter operating as a REST API client**. One MIT-licensed binary fetches quotes and publishes them as metrics.
 
-Once prices are metrics, stock analysis and alerting belong to the Prometheus ecosystem. **Most common technical analysis reproduces in PromQL**. RSI, MACD and moving averages all come out of the query language alone.
+Once prices are metrics, stock analysis and alerting belong to the Prometheus ecosystem. Most common technical analysis reproduces in PromQL. RSI, MACD and moving averages all come out of the query language alone.
 
 **Acknowledgments**: This exporter takes its shape from quotes-exporter and yquotes-exporter. I am deeply grateful to Marco and Tristan, who built and maintained those projects themselves. Mine would not exist without theirs.
 
 ## Actual Use Cases
 
-I run the free plan and scrape **8 markets and 4 individual stocks at 15-minute intervals**.
+I run the free plan and scrape 8 markets and 4 individual stocks at 15-minute intervals.
 
 A Grafana dashboard showing only the indicators and never the raw price is what keeps my trading systematic. It sits on an iPad in the hallway I pass every morning, and the color alone says whether a trade is due. On a day that needs none, the whole reading costs about 5 seconds.
 
@@ -45,11 +45,11 @@ The free plan sets three boundaries:
 - **Daily Quota**: The free plan allows 800 credits a day. Each symbol I add costs another 26, so 312 leaves room to grow.
 - **Market Coverage**: The free plan reaches US markets and US individual stocks alone.
 
-The trading window grows from 6.5 hours to 24 when 24-hour trading is unlocked on December 6, 2026. **Widening the interval, cutting symbols or paying for a plan is the choice that follows**.
+The trading window grows from 6.5 hours to 24 when brokers open 24-hour trading on December 6, 2026. Widening the interval, cutting symbols or paying for a plan is the choice that follows.
 
 ## Usage in the AI Era
 
-I run this exporter for **Knowledge Control**, because an agent picking my symbols must not hold the key to the account.
+I run this exporter for **Knowledge Control**. An agent reading the quotes never holds the key to the account.
 
 - **Knowledge Control**: A SaaS platform authenticates with an API key, so giving an agent the data usually means giving it the key. It never sees `TWELVEDATA_API_KEY`, which tightens **security**.
 - **Drift Detection**: A quote is an observation rather than a configuration, so no intended state exists to compare a reading against. This exporter does not serve that purpose.

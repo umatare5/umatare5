@@ -4,18 +4,18 @@ This article introduces **[umatare5/controld-exporter](https://github.com/umatar
 
 ## Background
 
-Google Public DNS arrived in 2009, making public resolvers the default. That traffic crossed the internet as plaintext, leaving it open to interception and forgery.
+In 2009, Google Public DNS arrived and made public resolvers the default. That traffic crossed the internet as plaintext, leaving it open to interception and forgery.
 
-Cloud-managed DNS services answered with DoH, DoT, and DoQ. Encrypted transport closed that exposure. Malware protection followed, turning resolvers into filtering points rather than just transport mechanisms.
+Cloud-managed DNS services answered with DoH, DoT and DoQ. Encrypted transport closed that exposure. Malware protection followed, turning resolvers into filtering points rather than just transport mechanisms.
 
-Several outstanding encryped malware protection resolvers available today, among them **[NextDNS](https://nextdns.io/)** and **[Cloudflare DNS](https://www.cloudflare.com/learning/dns/dns-over-tls/)**:
+Today, several outstanding encrypted malware protection resolvers answer this, among them **[NextDNS](https://nextdns.io/)** and **[Cloudflare DNS](https://www.cloudflare.com/learning/dns/dns-over-tls/)**:
 
-- **NextDNS is a well-known name in the encrypted malware protection DNS domain**. However, being based in Okinawa, every hop leaves the island over submarine cables. The resolution latency I measured was higher than acceptable.
-- **Cloudflare DNS 1.1.1.2 requires the least setup of any encrypted resolver I have used**. However, it is fully managed by design, and its filtering rules are not customizable.
+- **NextDNS is a well-known name in the encrypted malware protection DNS domain**. I was in Okinawa at the time and every hop left the island over submarine cable. The resolution latency I measured there was higher than I wanted.
+- **Cloudflare DNS 1.1.1.2 requires the least setup of any encrypted resolver I have used**. However, it is fully managed by design and the filtering rules are not mine to adjust.
 
 Compared with those two, [Control D](https://controld.com) answered both at a price I was willing to carry. It held the latency down and left the filtering rules mine to set, so it is the resolver I have relied on ever since.
 
-Control D puts custom malware protection behind a paid plan and its bill follows the scale of use. Its GUI is also where an operator changes something without meaning to. So I started this project to solve these challenges, and to keep both the bill and the configuration in Prometheus.
+Control D puts custom malware protection behind a paid plan, so its bill follows the scale of use. Its GUI is also where an operator changes something without meaning to. So I started this project to solve these challenges and keep both the bill and the configuration in Prometheus.
 
 ## The controld-exporter Approach
 

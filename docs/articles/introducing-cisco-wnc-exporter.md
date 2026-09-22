@@ -6,11 +6,11 @@ This article introduces **[umatare5/cisco-wnc-exporter](https://github.com/umata
 
 A decade ago, monitoring AireOS wireless LAN controllers (WLCs) relied heavily on SNMP. The protocol's own constraints kept it from exporting granular client metrics efficiently.
 
-As a workaround, Cisco offered appliances like WCS and Prime Infrastructure (PI). They scraped the controllers over SSH and web logins, then mapped and reported on what they gathered.
+As an improvement, Cisco offered appliances like WCS and Prime Infrastructure (PI). They scraped the controllers over SSH and web logins, then mapped and reported on what they gathered.
 
-Released around 2018, the Cisco Catalyst 9800 Series left the AireOS architecture behind and adopted Cisco's standard IOS-XE software. That shift opened options the SNMP era never had.
+In 2018, the Cisco Catalyst 9800 Series left the AireOS architecture behind and adopted Cisco's standard IOS-XE software. That shift opened options the SNMP era never had.
 
-IOS-XE brings Model-Driven Telemetry (MDT) and gRPC Streaming Telemetry with it. Cisco's own answers to wireless observability are **[Cisco Catalyst Center](https://www.cisco.com/site/us/en/index.html)** and **[Meraki Cloud Monitoring for Wireless](https://documentation.meraki.com/Wireless/Cloud-Managed_Hybrid_Operating_Mode_for_Catalyst_Wireless_LAN_Controllers)**.
+Today, IOS-XE brings Model-Driven Telemetry (MDT) and gRPC Streaming Telemetry with it. Cisco offers **[Cisco Catalyst Center](https://www.cisco.com/site/us/en/index.html)** and **[Meraki Cloud Monitoring for Wireless](https://documentation.meraki.com/Wireless/Cloud-Managed_Hybrid_Operating_Mode_for_Catalyst_Wireless_LAN_Controllers)** for wireless observability.
 
 - **Cisco Catalyst Center covers the entire network, a unified platform with automation and assurance**. For a scope limited to wireless LAN observability, its deployment and operational requirements are more than the job needs.
 - **Meraki Cloud Monitoring for Wireless brings the appliance into the Meraki dashboard**. It has no architectural support for C9800-CL, the virtual edition this exporter runs against.
@@ -21,7 +21,7 @@ Either way the precondition is Catalyst Center or a hardware appliance. Small-to
 
 Where the job spans the wired network as well as wireless, Catalyst Center is the platform I would still choose. I offer cisco-wnc-exporter as one alternative for wireless alone.
 
-cisco-wnc-exporter is a **Prometheus exporter built only for the Cisco Catalyst 9800 wireless LAN controller**. Released under the MIT license, one binary reads AP, client, WLAN and controller metrics.
+cisco-wnc-exporter is a **Prometheus exporter built for Cisco Catalyst 9800 controllers**. Released under the MIT license, one binary reads AP, client, WLAN and controller metrics.
 
 The exporter carries one collector per entity, and each reads only the YANG endpoints its own metrics need. Nothing walks `/restconf/data` itself, which is what keeps the load on the controller down.
 
@@ -67,7 +67,7 @@ remote_read:
 
 ## Usage in the AI Era
 
-I run this exporter for **Knowledge Control** and **Drift Detection**, because an agent triaging Wi-Fi needs RF state it cannot see and I need to know what it changed. Both read from the TSDB and never from the controller. Only the refresh cadence reaches the management plane, which protects **upstream performance** whatever either of us asks.
+I run this exporter for **Knowledge Control** and **Drift Detection**. Both read from the TSDB and never from the controller. Only the refresh cadence reaches the management plane, which protects **upstream performance** whatever either of us asks.
 
 - **Knowledge Control**: `wnc_client_info` mints a series per address change, so a short-retention TSDB drops them early. An agent reads them there and never on the controller, which cuts **token cost** and tightens **security**.
 - **Drift Detection**: The WLAN collector reports the configuration each WLAN resolves to, so `wnc_wlan_enabled` falling to 0 is an alert rather than a user report. Catching an agent's change there preserves **reliability**.

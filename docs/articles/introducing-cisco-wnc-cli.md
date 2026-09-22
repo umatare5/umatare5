@@ -6,7 +6,7 @@ This article introduces **[umatare5/cisco-wnc-cli](https://github.com/umatare5/c
 
 A decade ago, monitoring AireOS wireless LAN controllers (WLCs) relied heavily on SSH. Like most operators, I used custom CLI tools to log in and parse text outputs.
 
-Released around 2018, the Cisco Catalyst 9800 Series adopted standard IOS-XE software and with it programmable interfaces like RESTCONF. The same shift made both layers strictly defined and highly complex, the underlying YANG entities and the standard CLI above them.
+In 2018, the Cisco Catalyst 9800 Series arrived with standard IOS-XE software and programmable interfaces like RESTCONF. The same shift made both layers strictly defined and highly complex, the underlying YANG entities and the standard CLI above them.
 
 Cisco offers Catalyst Center as the official answer, a unified platform covering the entire network with automation and assurance. For a scope limited to wireless LAN operation, its deployment and operational requirements are more than the job needs.
 
@@ -108,7 +108,7 @@ Each answers one operational question in one invocation, with no CLI hierarchy t
 
 ## Usage in the AI Era
 
-I run this CLI for **Knowledge Control** and **Drift Detection**, because an agent that asks those same questions never reaches the controller. One way I do that is a scheduled `wnc show wlan --format json` snapshot the agent reads instead. The schedule bounds what reaches the management plane, whatever the agent goes on to ask.
+I run this CLI for **Knowledge Control** and **Drift Detection**. One way I do that is a scheduled `wnc show wlan --format json` snapshot the agent reads instead. The schedule bounds what reaches the management plane, whatever the agent goes on to ask.
 
 - **Knowledge Control**: `--format json` hands an agent a flat typed array where the controller offers raw YANG, which cuts **token cost**. The agent reads the snapshot and never holds `WNC_ACCESS_TOKEN`, which tightens **security**.
 - **Drift Detection**: Successive snapshots differ only where something changed, so an agent's unexpected edit reads as a diff. Finding a disabled WLAN there rather than in a user report preserves **reliability**.

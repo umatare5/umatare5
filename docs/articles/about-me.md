@@ -4,9 +4,9 @@ I'm a network-focused SRE working in Japan.
 
 I have more than 15 years of industry experience, especially with in-depth knowledge of networking including wireless. I'm good at real-time processing like packet analytics, metrics monitoring and others. I'm also a backend engineer using Go and TypeScript.
 
-I maintain several Prometheus exporters and CLI tools within my areas of expertise. I rely on **daily.dev** to record the problem each tool solves, the approach I chose, the actual use cases, how I use it in the AI era and the development environment.
+I maintain several Prometheus exporters and CLI tools within my areas of expertise. I rely on **daily.dev** to record the problem each tool solves and the approach I chose. It also records the actual use cases, how I use it in the AI era and the development environment.
 
-In the AI era, I run these tools for two purposes, **Knowledge Control** and **Drift Detection**.
+In the AI era, I run these tools for **Knowledge Control** and **Drift Detection**.
 
 - **Knowledge Control**: Keeping upstream state as Prometheus series and JSON files enables least privilege, cuts **token cost** and protects **upstream performance**. It also tightens **security** by hiding the upstream credentials from agents.
 - **Drift Detection**: Scraping configuration as metrics lets my existing alert rules detect an agent's unexpected change, such as a disabled service. They preserve **reliability** by warning early of degradation or an outage.
@@ -123,14 +123,14 @@ As of September 2026, the following repositories are available:
 - **TypeScript:** 2.2 to latest (2016-)
 - **Go:** 1.15 to latest (2020-)
 
-In the AI era, as of September 2026, I rely on **Anthropic Claude** for all my coding.
+As of September 2026, I rely on **Anthropic Claude** for all my coding.
 
 ### Others (2008-)
 
 - **Documentation:** Lotus Notes, Word, Confluence, Notion, Google Docs
 - **Drawing:** Visio, PowerPoint, Cacoo, Google Slide, draw.io, Lucidchart
 
-In the AI era, as of September 2026, I also rely on **Google Gemini** for all my documentation.
+As of September 2026, I also rely on **Google Gemini** for all my documentation.
 
 ## Qualifications
 

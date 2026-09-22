@@ -6,7 +6,7 @@ This article introduces **[umatare5/cisco-ios-xe-wireless-go](https://github.com
 
 A decade ago, monitoring AireOS wireless LAN controllers (WLCs) relied heavily on SSH. Like most operators, I used custom CLI tools to log in and parse text outputs.
 
-Released around 2018, the Cisco Catalyst 9800 Series adopted standard IOS-XE software and with it programmable interfaces like RESTCONF. However, the C9800 RESTCONF implementation deviates significantly from standard REST conventions. The underlying YANG data structures and the complexity of 802.11 itself are the cause.
+In 2018, the Cisco Catalyst 9800 Series arrived with standard IOS-XE software and programmable interfaces like RESTCONF. However, the C9800 RESTCONF implementation deviates significantly from standard REST conventions. The underlying YANG data structures and the complexity of 802.11 itself are the cause.
 
 When operators build custom automation tools for this infrastructure, they encounter several implementation challenges:
 

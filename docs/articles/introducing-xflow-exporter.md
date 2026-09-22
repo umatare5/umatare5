@@ -6,12 +6,12 @@ This article introduces **[umatare5/xflow-exporter](https://github.com/umatare5/
 
 A decade ago, analyzing network traffic meant assembling Fluentd, Norikra, Elasticsearch and Kibana into one system. Prometheus and Kafka were both new then, so the choices were few.
 
-Several outstanding open-source projects answer this today, among them **[Akvorado](https://github.com/akvorado/akvorado)** and **[pmacct](https://github.com/pmacct/pmacct)**.
+Today, several outstanding open-source projects answer this, among them **[Akvorado](https://github.com/akvorado/akvorado)** and **[pmacct](https://github.com/pmacct/pmacct)**.
 
 - **Akvorado is a phenomenal modern tool that gives deep network visibility**. However, strict enterprise production environments often put its AGPLv3 license through a compliance review first.
-- **pmacct is a highly mature and meticulously crafted project**. Its modular design carries everything from a small deployment to a service provider network. However, that reach asks for several processes and a backend like Kafka behind them. Each is one more thing to run and be paged for.
+- **pmacct is a highly mature and meticulously crafted project**. Its modular design carries everything from a small deployment to a service provider network. However, that reach asks for several processes and a Kafka backend, which is one more thing to run and troubleshoot.
 
-Either way the precondition is a license review to clear or a stack of processes to run. Enterprise networks and small-to-medium data centers with neither still had no flow analytics light enough to deploy on their own. So I started this project to solve these challenges with something rougher and simpler.
+Either way the precondition is a license review to clear or a stack of processes to run. Enterprise networks and small data centers with neither still had no flow analytics light enough to deploy on their own. So I started this project to run flow analytics without the backend infrastructure.
 
 ## The xflow-exporter Approach
 
@@ -19,12 +19,12 @@ Both projects are the work of people who have been at this far longer than I hav
 
 xflow-exporter is a **Prometheus exporter that receives flow datagrams and publishes aggregates**. One MIT-licensed binary decodes NetFlow, IPFIX and sFlow. The same binary collects, enriches and aggregates them.
 
-PromQL and Alertmanager already do the querying and the alerting, so the exporter keeps its own responsibilities small. It publishes aggregates like traffic per TCP flag or DSCP value, and the query does the rest.
+PromQL and Alertmanager already do the querying and the alerting, so the exporter only decodes and aggregates. It publishes aggregates like traffic per TCP flag or DSCP value, and the query does the rest.
 
 Compared with a dedicated analytics backend, the design accepts three constraints:
 
 - **Static Aggregation**: Each collector aggregates on one fixed set of dimensions, so the flexible multi-dimensional analysis a Kafka-backed platform supports is out of reach. That rules out large-scale traffic analysis.
-- **Precision Loss**: `--aggregation.top-k` publishes 1000 entries per table by default and withholds the tail entirely. A sum over a table ranks its busiest entries, so the grain is too coarse for security forensics.
+- **Precision Loss**: `--aggregation.top-k` publishes 1000 entries per table by default, and withholds the tail entirely. A sum over a table ranks its busiest entries, so the grain is too coarse for security forensics.
 - **Scalability Limits**: Every map keyed by wire data takes a bound, 65536 devices and 256 observation domains on each. [Bounded State](https://github.com/umatare5/xflow-exporter/blob/main/docs/architecture.md#bounded-state) lists the rest with the constant behind each one.
 
 ## Actual Use Cases
@@ -63,7 +63,7 @@ remote_read:
 
 ## Usage in the AI Era
 
-I run this exporter for **Knowledge Control**, because an agent acting on a network needs to know how traffic is trending. Devices export at their own sampler rate whether or not anyone is asking, so no query an agent writes runs back to one.
+I run this exporter for **Knowledge Control**. Devices export at their own sampler rate whether or not anyone is asking, so no query an agent writes runs back to one.
 
 - **Knowledge Control**: The per-pair series carry real cardinality, so a short-retention TSDB drops them early. An agent reads `xflow_host_pair_bytes_total` there and holds no device credential, which cuts **token cost** and tightens **security**.
 - **Drift Detection**: A flow is an observation rather than a configuration, so no intended state exists to compare a reading against. The exporters that read configuration are where that concern lives.
