@@ -8,7 +8,7 @@ I maintain several Prometheus exporters and CLI tools within my areas of experti
 
 In the AI era, I run these tools for **Knowledge Control** and **Drift Detection**.
 
-- **Knowledge Control**: Keeping upstream state as Prometheus series and JSON files enables least privilege, cuts **token cost** and protects **upstream performance**. It also tightens **security** by hiding the upstream credentials from agents.
+- **Knowledge Control**: Keeping upstream state as Prometheus series and JSON files enables least privilege, optimizes **token cost** and protects **upstream performance**. It also tightens **security** by hiding the upstream credentials from agents.
 - **Drift Detection**: Scraping configuration as metrics lets my existing alert rules detect an agent's unexpected change, such as a disabled service. They preserve **reliability** by warning early of degradation or an outage.
 
 As of September 2026, the following repositories are available:
